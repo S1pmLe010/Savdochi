@@ -13,7 +13,13 @@ test('Checkout rejects duplicate products, invalid IDs and fractional amounts',(
  assert.throws(()=>checkoutInput({...order,items:[{productId:'bad',quantity:1}]}));
  assert.throws(()=>checkoutInput({...order,items:[{...order.items[0],quantity:.5}]}));
  assert.throws(()=>checkoutInput({...order,phone:'abcdefghijk'}));
+ assert.throws(()=>checkoutInput({...order,phone:''}));
  assert.equal(checkoutInput(order).items.length,1);
+});
+test('Pickup checkout allows empty address; delivery still requires it',()=>{
+ assert.equal(checkoutInput({...order,deliveryMethod:'pickup',address:''}).address,'');
+ assert.throws(()=>checkoutInput({...order,deliveryMethod:'delivery',address:'abc'}));
+ assert.equal(checkoutInput({...order,deliveryMethod:'pickup',address:'Ombor 3'}).deliveryMethod,'pickup');
 });
 test('Server ignores client supplied seller, price, status and total',()=>{
  const p=productInput({...product,seller:'attacker',active:false});assert.equal(p.seller,undefined);assert.equal(p.active,undefined);

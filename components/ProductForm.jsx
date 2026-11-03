@@ -1,11 +1,13 @@
 'use client';
 import {useState} from 'react';
 import {categories} from '@/lib/commerce.mjs';
+import ImageInput from '@/components/ImageInput';
 export default function ProductForm({product,onSave,onCancel,busy}){
- const [form,setForm]=useState(product||{name:'',category:categories[0],price:'',unit:'1 dona',stock:'',minOrder:1,description:''});
+ const [form,setForm]=useState(product||{name:'',category:categories[0],price:'',unit:'1 dona',stock:'',minOrder:1,description:'',image:''});
  const field=(key,value)=>setForm(p=>({...p,[key]:value}));
  return <form className="productForm" onSubmit={e=>{e.preventDefault();onSave({...form,price:Number(form.price),stock:Number(form.stock),minOrder:Number(form.minOrder)});}}>
   <h3>{product?'Mahsulotni tahrirlash':'Yangi mahsulot'}</h3>
+  <ImageInput value={form.image||''} onChange={value=>field('image',value)} label="Mahsulot rasmi" busy={busy}/>
   <div className="formGrid">
    <label>Mahsulot nomi<input required minLength={2} maxLength={120} value={form.name} onChange={e=>field('name',e.target.value)}/></label>
    <label>Kategoriya<select value={form.category} onChange={e=>field('category',e.target.value)}>{categories.map(c=><option key={c}>{c}</option>)}</select></label>
