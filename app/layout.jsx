@@ -1,28 +1,29 @@
-import "./globals.css";
-import { Fraunces, Inter } from "next/font/google";
 
-const inter = Inter({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-inter",
-});
-
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-fraunces",
-});
+import 'leaflet/dist/leaflet.css';
+import './globals.css';
+import { Fraunces, Inter } from 'next/font/google';
 
 export const metadata = {
-  title: "Savdochi — B2B ulgurji savdo platformasi",
-  description:
-    "Ishlab chiqaruvchilar va yetkazib beruvchilar uchun ulgurji savdo platformasi.",
+  title: 'Savdochi | B2B ulgurji savdo',
+  description: 'Ulgurji savdo platformasi',
 };
 
-export default function Layout({ children }) {
+const fraunces = Fraunces({
+  subsets: ['latin'],
+  variable: '--font-fraunces',
+  display: 'swap',
+});
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+});
+
+export default function RootLayout({ children }) {
   return (
     <html lang="uz">
-      <body className={`${inter.variable} ${fraunces.variable}`}>
+      <body className={`${fraunces.variable} ${inter.variable}`}>
         {children}
       </body>
     </html>
